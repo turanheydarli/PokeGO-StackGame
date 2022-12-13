@@ -7,8 +7,6 @@ namespace Code.Scripts
     {
         [SerializeField] private float lerpDuration;
         [SerializeField] private float stackOffset;
-
-        [SerializeField] public bool isStored;
         
         private Sequence _sequence;
 
@@ -57,9 +55,20 @@ namespace Code.Scripts
             }
         }
 
-        private void CollectPokeCard(Transform obj)
+        private void CollectPokeCard(Transform card, Transform ball)
         {
-            throw new System.NotImplementedException();
+            CollectedBall ballScript = ball.GetComponent<CollectedBall>();
+
+            if (!ballScript.isStored)
+            {
+                ballScript.storedPokemon = card;
+                ballScript.isStored = true;
+                var sequence = DOTween.Sequence();
+                sequence.Append(card.transform.DOScale(2, 0.2f));
+                card.parent = ball;
+                sequence.Append(card.transform.DOLocalJump(Vector3.zero, 0.3f,1, 0.2f));
+                sequence.Insert(0.3f,card.transform.DOScale(0, 0.2f));
+            }
         }
     }
 }

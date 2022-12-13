@@ -8,6 +8,7 @@ TagManager:
   - Collectable
   - Thorn
   - Guillotine
+  - PokeCard
   layers:
   - Default
   - TransparentFX
