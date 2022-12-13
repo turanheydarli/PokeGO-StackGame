@@ -8,8 +8,8 @@ namespace Code.Scripts
     {
         private void OnEnable()
         {
-            EventHolder.Instance.OnThornCollider += SmashBall;
-            EventHolder.Instance.OnGuillotineCollider += SplitBalls;
+            EventHolder.Instance.OnThornCollided += SmashBall;
+            EventHolder.Instance.OnGuillotineCollided += SplitBalls;
         }
 
         private void SmashBall(Transform ball)

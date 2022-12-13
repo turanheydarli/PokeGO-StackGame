@@ -65,6 +65,8 @@ namespace Code.Scripts
             {
                 pipe.DORotate(new Vector3(0, 0), 1.5f);
                 vacuumParticle.Stop();
+                            CameraManager.Instance.OpenCamera("ShowScore");
+
             });
         }
     }

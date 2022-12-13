@@ -7,12 +7,15 @@ namespace Code.Scripts
     {
         [SerializeField] private float lerpDuration;
         [SerializeField] private float stackOffset;
+
+        [SerializeField] public bool isStored;
         
         private Sequence _sequence;
 
         void OnEnable()
         {
             EventHolder.Instance.OnBallCollected += CollectBall;
+            EventHolder.Instance.OnPokeCardCollided += CollectPokeCard;
         }
 
         private void FixedUpdate()
@@ -35,9 +38,9 @@ namespace Code.Scripts
                 _sequence.Join(StackHolder.Instance.pokeBalls[i].DOScale(1.5f, 0.1f));
                 _sequence.AppendInterval(0.05f);
                 _sequence.Join(StackHolder.Instance.pokeBalls[i].DOScale(1f, 0.1f));
-            } 
+            }
         }
-        
+
         private void StackFollow()
         {
             float lerpSpeed = lerpDuration;
@@ -53,6 +56,10 @@ namespace Code.Scripts
                 lerpSpeed += lerpDuration * Time.fixedDeltaTime;
             }
         }
-        
+
+        private void CollectPokeCard(Transform obj)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

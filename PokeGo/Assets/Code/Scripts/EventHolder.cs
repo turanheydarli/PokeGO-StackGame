@@ -27,24 +27,29 @@ namespace Code.Scripts
 
         public Action OnFinishCollider;
         public Action<Transform> OnBallCollected;
-        public Action<Transform> OnThornCollider;
-        public Action<Transform> OnGuillotineCollider;
+        public Action<Transform> OnThornCollided;
+        public Action<Transform> OnGuillotineCollided;
+        public Action<Transform> OnPokeCardCollided;
         public Action<Transform> OnSellBall;
 
         public void BallCollected(Transform ball)
         {
             OnBallCollected?.Invoke(ball);
         }
+        public void PokeCardCollected(Transform ball)
+        {
+            OnPokeCardCollided?.Invoke(ball);
+        }
         
-        public void ThornCollider(Transform ball)
+        public void ThornCollided(Transform ball)
         {
-            OnThornCollider?.Invoke(ball);
+            OnThornCollided?.Invoke(ball);
         }
-        public void GuillotineCollider(Transform ball)
+        public void GuillotineCollided(Transform ball)
         {
-            OnGuillotineCollider?.Invoke(ball);
+            OnGuillotineCollided?.Invoke(ball);
         }
-        public void SellBallCollider(Transform ball)
+        public void SellBallCollided(Transform ball)
         {
             OnSellBall?.Invoke(ball);
         }

@@ -12,11 +12,15 @@ namespace Code.Scripts
             }
             if (other.CompareTag("Thorn"))
             {
-                EventHolder.Instance.ThornCollider(transform);
+                EventHolder.Instance.ThornCollided(transform);
             }
             if (other.CompareTag("Guillotine"))
             {
-                EventHolder.Instance.GuillotineCollider(transform);
+                EventHolder.Instance.GuillotineCollided(transform);
+            }
+            if (other.CompareTag("PokeCard"))
+            {
+                EventHolder.Instance.GuillotineCollided(transform);
             }
         }
     }
