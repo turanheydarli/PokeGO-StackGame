@@ -34,6 +34,7 @@ namespace Code.Scripts.Mechanics
 
             sequence.Join(pipe.DORotate(new Vector3(0, 25), 1));
 
+            sequence.SetAutoKill(false);
 
             for (int i = 1; i < StackHolder.Instance.PokeBallsCount; i++)
             {
@@ -67,7 +68,7 @@ namespace Code.Scripts.Mechanics
                     });
                 }));
                 i--;
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(0.1f);
             }
 
             sequence.OnComplete(() =>
@@ -75,8 +76,13 @@ namespace Code.Scripts.Mechanics
                 pipe.DORotate(new Vector3(0, 0), 1.5f);
                 vacuumParticle.Stop();
                 CameraManager.Instance.OpenCamera("ShowScore");
-                arrow.DORotate(Vector3.forward * (_collectedBallCount * -10), 1.2f).OnComplete(() =>
+                var seq = DOTween.Sequence();
+                seq.Join(arrow.DORotate(Vector3.forward * (_collectedBallCount * -10), 1.2f));
+                seq.AppendInterval(2);
+                seq.OnComplete(() =>
                 {
+                    SoundManager.Instance.Play("WinSound");
+
                     ESDataManager.Instance.Save();
                     EventHolder.Instance.OpenRewards();
                 });

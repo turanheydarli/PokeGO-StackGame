@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using Code.Scripts.Classes;
 using Code.Scripts.Mechanics;
 using DG.Tweening;
 using TMPro;
@@ -62,12 +62,33 @@ namespace Code.Scripts.Managers
         [SerializeField] private Sprite bulbasaurSprite;
         [SerializeField] private Sprite charmanderSprite;
 
+        [Header("Poke battle")] [SerializeField]
+        private GameObject pokeBattlePanel;
+
+        [SerializeField] private Button pokeBattleCloseButton;
+
+        [Header("Inventory")] [SerializeField] private GameObject inventoryPanel;
+        [SerializeField] private Button inventoryPanelCloseButton;
+
+        [Header("Pause panel")] [SerializeField]
+        private GameObject pausePanel;
+
+        [SerializeField] private Button pausePanelRestartBtn;
+        [SerializeField] private Button pausePanelResumeBtn;
+        [SerializeField] private Button pausePanelMainMenuBtn;
+
+
+        [Header("General Panel")] [SerializeField]
+        private GameObject generalPanel;
+
+        [SerializeField] private Button pauseButton;
 
         private void Awake()
         {
             OpenLoadingPanel();
 
             tapToPlayButton.onClick.AddListener(CloseHomePanel);
+            tapToPlayButton.onClick.AddListener(OpenGeneralPanel);
             tapToPlayButton.onClick.AddListener(EventHolder.Instance.PlayTabbed);
             settingsButton.onClick.AddListener(OpenSettingsPanel);
             backButton.onClick.AddListener(CloseSettingsPanel);
@@ -75,8 +96,44 @@ namespace Code.Scripts.Managers
             soundSlider.onValueChanged.AddListener(ChangeSoundVolume);
             cardFoundBackButton.onClick.AddListener(CloseCardFoundPanel);
             rewardsBackButton.onClick.AddListener(RestartGame);
+            pokeBattleButton.onClick.AddListener(OpenBattlePanel);
+            pokeBattleCloseButton.onClick.AddListener(CloseBattlePanel);
+            inventoryButton.onClick.AddListener(OpenInventoryPanel);
+            inventoryPanelCloseButton.onClick.AddListener(CloseInventoryPanel);
+
+            pausePanelRestartBtn.onClick.AddListener(RestartGame);
+            pausePanelMainMenuBtn.onClick.AddListener(RestartGame);
+            pausePanelResumeBtn.onClick.AddListener(ResumeButton);
+
+            pauseButton.onClick.AddListener(PauseButton);
+
             EventHolder.Instance.OnOpenRewards += OpenRewardsPanel;
             EventHolder.Instance.OnNewCardFound += OpenCardFoundPanel;
+        }
+
+        private void OpenGeneralPanel()
+        {
+            generalPanel.SetActive(true);
+        }
+
+        private void CloseInventoryPanel()
+        {
+            inventoryPanel.SetActive(false);
+        }
+
+        private void OpenInventoryPanel()
+        {
+            inventoryPanel.SetActive(true);
+        }
+
+        private void OpenBattlePanel()
+        {
+            pokeBattlePanel.SetActive(true);
+        }
+
+        private void CloseBattlePanel()
+        {
+            pokeBattlePanel.SetActive(false);
         }
 
         private void Start()
@@ -99,8 +156,10 @@ namespace Code.Scripts.Managers
 
         private void OpenHomePanel()
         {
-            Sequence sequence = DOTween.Sequence();
+            SoundManager.Instance.Play("BackgroundMusic");
 
+            Sequence sequence = DOTween.Sequence();
+            generalPanel.SetActive(false);
             sequence.Join(inventory.transform.DOMoveX(165, 0));
             sequence.Join(pokeBattle.transform.DOMoveX(160, 0));
             sequence.Join(settings.transform.DOMoveX(922, 0));
@@ -137,8 +196,11 @@ namespace Code.Scripts.Managers
 
         IEnumerator LoadingAnimation()
         {
-            DOTween.To(() => pokemonFill.fillAmount, x => pokemonFill.fillAmount = x, 1, 3f);
-            yield return new WaitForSeconds(3f);
+            DOTween.To(() => pokemonFill.fillAmount, x => pokemonFill.fillAmount = x, 1, 3f).OnComplete(() =>
+            {
+                SoundManager.Instance.Play("LoadedSound");
+            });
+            yield return new WaitForSeconds(5f);
             CloseLoadingPanel();
             OpenHomePanel();
         }
@@ -174,11 +236,18 @@ namespace Code.Scripts.Managers
             rewardsPanel.SetActive(false);
         }
 
-
         private void OpenCardFoundPanel(string cardName)
         {
             cardFoundPanel.SetActive(true);
-
+            
+            ESDataManager.Instance.gameData.pokeCards.Add(new PokeCard()
+            {
+                cardName = cardName,
+                cardPower = 10,
+                cardPrice = 12
+            });
+            ESDataManager.Instance.Save();
+            
             switch (cardName)
             {
                 case "Bulbasaur":
@@ -198,7 +267,9 @@ namespace Code.Scripts.Managers
 
         void RestartGame()
         {
-            CameraManager.Instance.OpenCamera("VirtualCamera");
+            SoundManager.Instance.Stop("PlayModeMusic");
+
+            Time.timeScale = 1;
             StackHolder.Instance.pokeBalls.Clear();
             DOTween.KillAll();
             SceneManager.LoadScene(0);
@@ -222,6 +293,25 @@ namespace Code.Scripts.Managers
             }
 
             rewardsBackButton.interactable = true;
+        }
+
+        void ResumeButton()
+        {
+            GameObject.FindObjectOfType<PlayerController>().verticalSpeed = 3;
+            pausePanel.SetActive(false);
+            Time.timeScale = 1;
+        }
+
+        void PauseButton()
+        {
+            GameObject.FindObjectOfType<PlayerController>().verticalSpeed = 0;
+            pausePanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+
+        public void ButtonSoundEffect()
+        {
+            SoundManager.Instance.Play("ButtonClickSound");
         }
     }
 }

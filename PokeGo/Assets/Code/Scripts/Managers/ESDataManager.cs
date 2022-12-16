@@ -79,7 +79,7 @@ namespace Code.Scripts.Managers
                 gameData.squirtleCount -= 10;
                 cards.Add("Squirtle");
             }
-
+            Instance.Save();
             return cards.ToArray();
         }
     }

@@ -32,11 +32,6 @@ namespace Code.Scripts.Managers
             }
         }
 
-        private void Start()
-        {
-            Play("BackgroundMusic");
-        }
-
         public void Play(string soundName)
         {
             Sound s = System.Array.Find(sounds, sound => sound.name == soundName);

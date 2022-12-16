@@ -64,6 +64,7 @@ namespace Code.Scripts.Mechanics
 
             if (!ballScript.isStored)
             {
+                SoundManager.Instance.Play("VacuumSound");
                 ballScript.storedPokemon = card;
                 ballScript.isStored = true;
                 var sequence = DOTween.Sequence();
