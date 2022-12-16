@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Code.Scripts.Classes
 {
@@ -7,7 +8,11 @@ namespace Code.Scripts.Classes
     {
         public int levelIndex;
         public string playerName;
-        public int soundLevel;
+        [Range(0, 1)] public float soundLevel;
         public List<PokeCard> pokeCards;
+        public int squirtleCount;
+        public int charmeleonCount;
+        public int bulbasaurCount;
+        public int charmanderCount;
     }
 }

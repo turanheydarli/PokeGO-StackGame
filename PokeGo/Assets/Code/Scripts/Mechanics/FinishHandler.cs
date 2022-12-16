@@ -53,13 +53,9 @@ namespace Code.Scripts.Mechanics
                         ball.gameObject.SetActive(false);
                         if (collectedBall.isStored)
                         {
-                            ESDataManager.Instance.gameData.pokeCards.Add(new PokeCard
-                            {
-                                cardName = collectedBall.storedPokemon.name.Split(" ")[0],
-                                cardPower = 10,
-                                cardPrice = 30
-                            });
-                            
+                            HandlePokeCard(collectedBall.storedPokemon.name.Split(" ")[0]);
+                            SoundManager.Instance.Play("VacuumSound");
+
                             _collectedBallCount++;
                             collectedBall.storedPokemon.parent = pokePipe;
                             //Transform particle = Instantiate(particlePrefab, pokemon);
@@ -79,9 +75,31 @@ namespace Code.Scripts.Mechanics
                 pipe.DORotate(new Vector3(0, 0), 1.5f);
                 vacuumParticle.Stop();
                 CameraManager.Instance.OpenCamera("ShowScore");
-                arrow.DORotate(Vector3.forward * (_collectedBallCount * -10), 1.2f);
-                ESDataManager.Instance.Save();
+                arrow.DORotate(Vector3.forward * (_collectedBallCount * -10), 1.2f).OnComplete(() =>
+                {
+                    ESDataManager.Instance.Save();
+                    EventHolder.Instance.OpenRewards();
+                });
             });
+        }
+
+        void HandlePokeCard(string cardName)
+        {
+            switch (cardName)
+            {
+                case "Squirtle":
+                    ESDataManager.Instance.gameData.squirtleCount++;
+                    break;
+                case "Charmander":
+                    ESDataManager.Instance.gameData.charmanderCount++;
+                    break;
+                case "Charmeleon":
+                    ESDataManager.Instance.gameData.charmeleonCount++;
+                    break;
+                case "Bulbasaur":
+                    ESDataManager.Instance.gameData.bulbasaurCount++;
+                    break;
+            }
         }
     }
 }

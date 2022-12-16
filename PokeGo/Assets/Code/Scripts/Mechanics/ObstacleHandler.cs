@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Code.Scripts.Managers;
 using DG.Tweening;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Code.Scripts.Mechanics
 
         private void SmashBall(Transform ball)
         {
+            SoundManager.Instance.Play("ThornSound");
+
             StackHolder.Instance.pokeBalls.Remove(ball);
             ball.DOJump(Vector3.forward * 2, 1, 1, 1);
         }
@@ -21,6 +24,8 @@ namespace Code.Scripts.Mechanics
         
         private void SplitBalls(Transform ball)
         {
+            SoundManager.Instance.Play("GuillotineSound");
+            
             int colliderBall = StackHolder.Instance.pokeBalls.FindIndex(x => x == ball);
 
             if (colliderBall != -1)

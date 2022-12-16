@@ -1,3 +1,4 @@
+using Code.Scripts.Managers;
 using UnityEngine;
 
 namespace Code.Scripts.Mechanics
@@ -54,6 +55,8 @@ namespace Code.Scripts.Mechanics
 
         void PlayGame()
         {
+            SoundManager.Instance.Play("PlayModeMusic");
+            SoundManager.Instance.Stop("BackgroundMusic");
             verticalSpeed = 3;
             speedMultiplier = 2;
         }

@@ -29,10 +29,10 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
+    - Assembly-CSharp
     - MoreMountains.Feedbacks
     - MoreMountains.Tools
     - MoreMountains.Feedbacks.URP
-    - Assembly-CSharp
     - Cinemachine
     - MoreMountains.Feedbacks.MMTools
     - MoreMountains.Feedbacks.NiceVibrations

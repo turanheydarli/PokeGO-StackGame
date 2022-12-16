@@ -51,5 +51,36 @@ namespace Code.Scripts.Managers
                 Save();
             }
         }
+
+        public string[] FoundCards()
+        {
+            List<string> cards = new List<string>();
+
+            if (gameData.bulbasaurCount >= 10)
+            {
+                gameData.bulbasaurCount -= 10;
+                cards.Add("Bulbasaur");
+            }
+            
+            if (gameData.charmanderCount >= 10)
+            {
+                gameData.charmanderCount -= 10;
+                cards.Add("Charmander");
+            }
+            
+            if (gameData.charmeleonCount >= 10)
+            {
+                gameData.charmeleonCount -= 10;
+                cards.Add("Charmeleon");
+            }
+            
+            if (gameData.squirtleCount >= 10)
+            {
+                gameData.squirtleCount -= 10;
+                cards.Add("Squirtle");
+            }
+
+            return cards.ToArray();
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Code.Scripts.Managers;
 using DG.Tweening;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ namespace Code.Scripts.Mechanics
 
         private void CollectBall(Transform ball)
         {
+            SoundManager.Instance.Play("CollectBallSound");
+            
             ball.tag = "Collected";
             StackHolder.Instance.pokeBalls.Add(ball);
             ball.gameObject.AddComponent<CollectedBall>();

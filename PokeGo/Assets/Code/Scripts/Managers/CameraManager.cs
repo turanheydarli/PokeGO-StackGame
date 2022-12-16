@@ -14,7 +14,17 @@ namespace Code.Scripts.Managers
 
         private void Awake()
         {
-            Instance ??= this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            DontDestroyOnLoad(gameObject);
         }
 
         void Start()

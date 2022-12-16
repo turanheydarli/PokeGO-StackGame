@@ -27,11 +27,12 @@ namespace Code.Scripts.Mechanics
 
         public Action OnFinishCollider;
         public Action OnTabPlay;
+        public Action OnOpenRewards;
+        public Action<string> OnNewCardFound;
         public Action<Transform> OnBallCollected;
         public Action<Transform> OnThornCollided;
         public Action<Transform> OnGuillotineCollided;
         public Action<Transform, Transform> OnPokeCardCollided;
-        public Action<Transform> OnSellBall;
 
        
         public void PlayTabbed()
@@ -58,10 +59,16 @@ namespace Code.Scripts.Mechanics
             OnGuillotineCollided?.Invoke(ball);
         }
 
-        public void SellBallCollided(Transform ball)
+        public void OpenRewards()
         {
-            OnSellBall?.Invoke(ball);
+            OnOpenRewards?.Invoke();
         }
+        
+        public void NewCardFound(string cardName)
+        {
+            OnNewCardFound?.Invoke(cardName);
+        }
+
 
         public void FinishCollider()
         {
