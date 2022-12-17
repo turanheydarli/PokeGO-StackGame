@@ -7498,7 +7498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1478483691
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8168,6 +8168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingJoystick: {fileID: 0}
+  dragSpeed: 0.2
 --- !u!114 &1590971293
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -160,10 +160,10 @@ namespace Code.Scripts.Managers
 
             Sequence sequence = DOTween.Sequence();
             generalPanel.SetActive(false);
-            sequence.Join(inventory.transform.DOMoveX(165, 0));
-            sequence.Join(pokeBattle.transform.DOMoveX(160, 0));
-            sequence.Join(settings.transform.DOMoveX(922, 0));
-            sequence.Join(profileCard.transform.DOMoveY(1620, 0));
+            // sequence.Join(inventory.transform.DOMoveX(165, 0));
+            // sequence.Join(pokeBattle.transform.DOMoveX(160, 0));
+            // sequence.Join(settings.transform.DOMoveX(922, 0));
+            // sequence.Join(profileCard.transform.DOMoveY(1720, 0));
 
             sequence.OnComplete(() => { homePanel.SetActive(true); });
 
@@ -174,9 +174,9 @@ namespace Code.Scripts.Managers
         {
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Join(inventory.transform.DOMoveX(-150, 0.3f));
-            sequence.Join(pokeBattle.transform.DOMoveX(-100, 0.3f));
-            sequence.Join(profileCard.transform.DOMoveY(2300, 0.3f));
+            // sequence.Join(inventory.transform.DOMoveX(-150, 0.3f));
+            // sequence.Join(pokeBattle.transform.DOMoveX(-100, 0.3f));
+            // sequence.Join(profileCard.transform.DOMoveY(2300, 0.3f));
             sequence.Join(settings.transform.DOMoveX(1350, 0.3f));
 
             sequence.OnComplete(() => { homePanel.SetActive(false); });
