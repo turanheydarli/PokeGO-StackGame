@@ -16,15 +16,18 @@ namespace Code.Scripts.Mechanics
         {
             if (IsMoving)
             {
-                if (Input.touchCount > 0)
-                {
-                    _touch = Input.GetTouch(0);
-                    if (_touch.phase == TouchPhase.Moved)
-                    {
-                        Horizontal = Vector3.Lerp(new Vector3(Horizontal, 0), _touch.deltaPosition * dragSpeed, .5f * Time.deltaTime).x;
-                        Vertical = Vector3.Lerp(new Vector3(0, Vertical), _touch.deltaPosition * dragSpeed, .5f * Time.deltaTime).y;
-                    }
-                }
+                Horizontal = Input.GetAxis("Horizontal");
+                Vertical = Input.GetAxis("Vertical");
+                
+                // if (Input.touchCount > 0)
+                // {
+                //     _touch = Input.GetTouch(0);
+                //     if (_touch.phase == TouchPhase.Moved)
+                //     {
+                //         Horizontal = Vector3.Lerp(new Vector3(Horizontal, 0), _touch.deltaPosition * dragSpeed, .5f * Time.deltaTime).x;
+                //         Vertical = Vector3.Lerp(new Vector3(0, Vertical), _touch.deltaPosition * dragSpeed, .5f * Time.deltaTime).y;
+                //     }
+                // }
             }
         }
     }
